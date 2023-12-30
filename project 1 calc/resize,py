@@ -1,0 +1,24 @@
+from PIL import Image
+import os
+
+def resize_images_in_folder(source_folder, target_size=(64, 64)):
+    """
+    Resize all images in the given folder to the specified size.
+
+    :param source_folder: Path to the source folder containing images.
+    :param target_size: Tuple specifying the target size.
+    """
+    for filename in os.listdir(source_folder):
+        if filename.endswith(".jpg") or filename.endswith(".png"):  # You can add other extensions if needed
+            img_path = os.path.join(source_folder, filename)
+            try:
+                with Image.open(img_path) as img:
+                    img_resized = img.resize(target_size, Image.LANCZOS)
+                    img_resized.save(img_path)  # Overwriting the original image. Change path if you want to save to a different location.
+            except Exception as e:
+                print(f"Error resizing image {filename}. Error: {e}")
+
+
+if __name__ == "__main__":
+    source_folder_path = r"C:\Users\hp\OneDrive\Desktop\project 1 calc\calc ymbols" 
+    resize_images_in_folder(source_folder_path)
